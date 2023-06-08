@@ -1,16 +1,26 @@
 function ID(block, bite) {
-	if(bite !== undefined) {
-		bite = bite.toLowerCase()
-		if(bite == 'i' || bite == 'id') {bite = '#';} else if(bite == 'c' || bite == 'class') {bite = '.';}else if(bite == 'b' || bite == 'block') {bite = '';}
-	} else {var bite = '';}
+	bite = IdSettings(bite);
 	try {
-		return ALL((this.parent.document).querySelectorAll(bite+block));
+		return (this.parent.document).querySelector(bite+block);
 	} catch (err) {
-		return ALL(this.querySelectorAll(bite+block));
-	}
-	function ALL(mass) {
-		if(mass.length == 1) {return mass[0];} 
-		return mass;
+		return this.querySelector(bite+block);
 	}
 }
+function IDall(block, bite) {
+	bite = IdSettings(bite);
+	try {
+		return (this.parent.document).querySelectorAll(bite+block);
+	} catch (err) {
+		return this.querySelectorAll(bite+block);
+	}
+}
+function IdSettings(bite) {
+	if(bite !== undefined) {
+		bite = bite.toLowerCase()
+		if(bite == 'i' || bite == 'id') {return '#';} else if(bite == 'c' || bite == 'class') {return '.';}else if(bite == 'b' || bite == 'block') {return '';}
+	} else {return '';}
+}
+// Найти блоки
 Object.prototype.ID = ID;
+Object.prototype.IDall = IDall;
+//
